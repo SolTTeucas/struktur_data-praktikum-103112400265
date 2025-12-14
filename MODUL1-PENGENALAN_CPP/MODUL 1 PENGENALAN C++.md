@@ -534,59 +534,622 @@ float ctof(float celcius){
 > ![[guided-blok-program.png]]
 ## Unguided
 
-### Soal 1
+### Soal 1 Program input float - hasil aritmatika
 
-copy paste soal nomor 1 disini
+Buatlah program yang menerima input-an dua buah bilangan betipe float, kemudian
+memberikan output-an hasil penjumlahan, pengurangan, perkalian, dan pembagian dari dua
+bilangan tersebut.
 
 ```go
-package main
+#include <iostream>
+using namespace std;
 
-func main() {
-	fmt.Println("Kode kalian disini")
-	fmt.Println("JANGAN MASUKIN >>SCREENSHOT<< KODE KALIAN DISINI")
-	fmt.Println("KALAU ADA -20 POIN LAPRAK")
+// Prosedur: hanya menampilkan hasil, tidak mengembalikan nilai
+/* Cuma buat display ajah, sekalian sama penghitungannya bisa, nanti yang ditampilin value
+hasilnya. */
+//format display-nya.
+//buat luas dan keliling itu diitung ulang 
+
+// Fungsi: mengembalikan nilai luas
+//double itu kek float cuma decimal numbers yang bisa ditampilin lebih banyak.
+float hitungPenjumlahan(float x, float y) /*ini adalah function, paramsnya double p, sama double l*/
+{
+    return x + y; //algoritma untuk menghitung luas persegi panjang
+}
+
+// Fungsi: mengembalikan nilai keliling
+float hitungPengurangan(float x, float y)
+{
+    return x - y; /* jadi yang diolah itu dataType int tapi dihitung dalam function yang keluarannya double*/
+}
+
+float hitungPerkalian(float x, float y)
+{
+    return x*y;
+}
+
+float hitungPembagian(float x, float y)
+{
+    return x/y;
+}
+
+
+void tampilkanHasil(double x, double y)
+{
+    cout << "\n=== Hasil Perhitungan ===" << endl;
+    cout << "Float Pertama : " << x << endl;
+    cout << "Float Kedua   : " << y << endl;
+    cout << "Penjumlahan   : " << hitungPenjumlahan(x, y) << endl;
+    cout << "Pengurangan   : " << hitungPengurangan(x, y) << endl;
+    cout << "Perkalian     : " << hitungPerkalian(x, y) << endl;
+    cout << "Pembagian     : " << hitungPembagian(x, y) << endl;
+}
+
+
+int main() //function juga bukan procedure
+{
+    float n1, n2;
+
+    /*input yang akan diolah oleh function hitungLuas dan hitungKeliling*/
+    cout << "Masukkan float pertama : ";
+    cin >> n1; //jadi datatypes yang diinput itu berdasarkan datatype variablenya yang di extract.
+    cout << "Masukkan float kedua : "; // "<< adalah operator extractor"
+    cin >> n2;
+
+
+    // // Panggil fungsi yang sudah dideklarasi di luar function main
+    // float penjumlahan = hitungPenjumlahan(n1, n2); //pemanggilan function dimasukin ke variable luas
+    // float pengurangan = hitungPengurangan(n1, n2);
+    // float perkalian   = hitungPerkalian(n1, n2); 
+    // float pembagian   = hitungPembagian(n1, n2);
+
+    // /* format output sebelum ditampilkannya format akhir yang ada di procedure lain */
+    // cout << "\nDihitung dengan fungsi:" << endl;
+    // cout << "Penjumlahan      = " << penjumlahan << endl; //pemanggilan variable yang isinya function dan params, jadi yang di cout itu adalah hasil akhir
+    // cout << "Pengurangan  = " << pengurangan << endl;
+
+    // Panggil prosedur
+    tampilkanHasil(n1, n2);
+
+    return 0;
+}
+
+
+```
+
+> Output
+> ![[unguided1-programAritmatika.png]]
+Penjelasan mengenai code ada didalam sourcecode yang tercantum di atas dalam bentuk comment.
+
+### Soal 2 Data-Casting program
+
+Buatlah sebuah program yang menerima masukan angka dan mengeluarkan output nilai
+angka tersebut dalam bentuk tulisan. Angka yang akan di- input-kan user adalah bilangan bulat
+positif mulai dari 0 s.d 100
+
+```go
+#include <iostream>
+#include <string>
+using namespace std;
+
+/* BAGIAN FUNCTIONS LATIHAN 1 */
+float hitungPenjumlahan(float x, float y) /*ini adalah function, paramsnya double p, sama double l*/
+{
+    return x + y; //algoritma untuk menghitung luas persegi panjang
+}
+
+// Fungsi: mengembalikan nilai keliling
+float hitungPengurangan(float x, float y)
+{
+    return x - y; /* jadi yang diolah itu dataType int tapi dihitung dalam function yang keluarannya double*/
+}
+
+float hitungPerkalian(float x, float y)
+{
+    return x*y;
+}
+
+float hitungPembagian(float x, float y)
+{
+    return x/y;
+}
+
+/* END LINE FUNCTIONS LATIHAN 1*/
+
+
+/* SECTION ARRAY LATIHAN 2*/
+string satuan[] = {
+    "", "satu", "dua", "tiga", "empat", "lima", "enam",
+    "tujuh", "delapan", "sembilan"
+};
+string belasan[] = {
+    "sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas",
+    "lima belas", "enam belas", "tujuh belas", "delapan belas",
+    "sembilan belas"
+};
+string puluhan[] = {
+    "","", "dua puluh", "tiga puluh", "empat puluh", "lima puluh",
+    "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"
+};
+/* SECTION ARRAY LATIHAN 2*/
+
+
+/* SECTION FUNCTION UNTUK CONDITION HANDLING LATIHAN2*/
+string bilanganKeKata(int n){
+    if (n==0)
+    return "nol";
+
+    if (n<10)
+    return satuan[n];
+
+    if (n<20)
+    return belasan[n-10];
+
+    if (n<100)
+    return puluhan[n/10] + (n%10 ? " " + satuan[n%10] : "");
+
+    if (n<200)
+    return "seratus " + bilanganKeKata(n-100);
+
+    if (n<1000)
+    return satuan[n/100] + " ratus" + (n%100 ? " " + bilanganKeKata(n%100): "");
+
+    if (n<1000000)
+    return bilanganKeKata(n/1000) + " ribu" + (n%1000 ? " " + bilanganKeKata(n%1000): "");
+
+    else
+    return "terlalu besar";
+};
+/* END-LINE DARI SECTION FUNCTION HANDLING LATIHAN2 */
+
+
+
+/* SECTION PROCEDURE UNTUK LATIHAN 1 */
+void tampilkanHasil(double x, double y)
+{
+    cout << "\n=== Hasil Perhitungan ===" << endl;
+    cout << "Float Pertama : " << x << endl;
+    cout << "Float Kedua   : " << y << endl;
+    cout << "Penjumlahan   : " << hitungPenjumlahan(x, y) << endl;
+    cout << "Pengurangan   : " << hitungPengurangan(x, y) << endl;
+    cout << "Perkalian     : " << hitungPerkalian(x, y) << endl;
+    cout << "Pembagian     : " << hitungPembagian(x, y) << endl;
+}
+/* END-LINE SECTION PROCEDURE UNTUK LATIHAN1 */
+
+
+/* SECTION PROCESURE UNTUK MAIN*/
+void listModul(){
+    cout <<
+    "BERIKUT ADALAH LIST MODULES ANDA : \n"
+    "1.) Modul 1\n"
+    "2.) Modul 2\n"
+    "3.) Modul 3\n"
+    "4.) Modul 4\n";
+}
+/* END-LINE SECTION PROCESURE UNTUK MAIN*/
+
+
+/* SECTION PROCEDURE PENAMPILAN LIST LATIHAN, MAIN.*/
+void listLatihan(int x){
+    switch(x)
+    {
+        case 1:
+            cout <<
+            "LIST LATIHAN DALAM MODUL "<< x << ":\n"
+            "1- Latihan 1\n"
+            "2- Latihan 2\n"
+            "3- Latihan 3\n";
+        break;
+        
+        case 2:
+            cout <<
+            "LIST LATIHAN DALAM MODUL " << x <<":\n"
+            "1- (still empty)\n"
+            "2- (still empty)\n"
+            "3- (still empty)\n";
+        break;
+        
+        default:
+        break;
+    }
+}
+/* END-LINE SECTION PROCEDURE PENAMPILAN LIST LATIHAN, MAIN.*/
+
+
+int main()
+{
+    int bilangan;
+
+    string cabut = "n";
+
+    int modul;
+    int latihan;
+
+    while (cabut == "n")
+    {
+        listModul();//menampilkan listModul
+        cout << 
+        ">> Modul berapa yang ingin Anda akses : ";
+        cin >> modul;
+        cout << endl;
+
+        switch (modul)
+        {
+        case 1:
+            cout <<"------ANDA BERADA DALAM MODUL 1\n"<< endl;
+            listLatihan(1);
+
+            cout <<
+            ">> Latihan berapa yang ingin Anda akses : ";
+            cin >> latihan;
+
+            switch(latihan)
+            {
+                //MAIN LATIHAN1
+                //MAIN LATIHAN1
+                //MAIN LATIHAN1
+                case 1: 
+                    float n1, n2;
+
+                    /*input yang akan diolah oleh function hitungLuas dan hitungKeliling*/
+                    cout << "Masukkan float pertama : ";
+                    cin >> n1; //jadi datatypes yang diinput itu berdasarkan datatype variablenya yang di extract.
+                    cout << "Masukkan float kedua : "; // "<< adalah operator extractor"
+                    cin >> n2;
+
+                    tampilkanHasil(n1, n2);
+                break;
+
+                case 2:
+                    cout <<
+                    "-------ANDA BERADA DALAM MODUL 1 - LATIHAN 2\n"
+                    "-------INI ADALAH PROGRAM NUMBERS-TO-SENTENCE CONVERSION\n";
+
+                    cout <<
+                    "Masukkan bilangan-mu";
+                    cin >> bilangan;
+
+                    cout <<
+                    "Bilangan Anda adalah : "
+                    << bilanganKeKata(bilangan)
+                    << endl;
+
+                break;
+
+                default:
+                break;
+            }
+            break;
+    
+        case 2:
+            cout <<
+            "-------ANDA BERADA DALAM MODUL2\n";
+            listLatihan(2);
+
+            cout <<
+            ">> Latihan berapa yang ingin Anda akses :";
+            cin >> latihan;
+        break;
+
+        default:
+        break;
+        }
+        cout <<
+        ">> Mau cabut atau udah nyaman?(y/n)";
+        cin >> cabut;
+    }
+    return 0;
 }
 ```
 
 > Output
-> ![Screenshot bagian x](output/screenshot_soal1.png)
-> %% Untuk mencantumkan screenshot, tidak boleh ada spasi di urlnya `()`, penamaan file bebas asal gak sara dan mudah dipahami aja,, dan jangan lupa hapus komen ini yah%%
+> ![[unguided2-numberToSequence.png]]
 
-Penjelasan ttg kode kalian disini
+penjelasan kode terdapat di dalam sourcecode dalam bentuk comment.
 
-### Soal 2
-
-soal nomor 2A
+### Soal 3 
 
 ```go
-package main
+#include <iostream>
+#include <string>
+using namespace std;
 
-func main() {
-	fmt.Println("kode untuk soal nomor 2A")
+/* BAGIAN FUNCTIONS LATIHAN 1 */
+float hitungPenjumlahan(float x, float y) /*ini adalah function, paramsnya double p, sama double l*/
+{
+    return x + y; //algoritma untuk menghitung luas persegi panjang
+}
+
+// Fungsi: mengembalikan nilai keliling
+float hitungPengurangan(float x, float y)
+{
+    return x - y; /* jadi yang diolah itu dataType int tapi dihitung dalam function yang keluarannya double*/
+}
+
+float hitungPerkalian(float x, float y)
+{
+    return x*y;
+}
+
+float hitungPembagian(float x, float y)
+{
+    return x/y;
+}
+
+/* END LINE FUNCTIONS LATIHAN 1*/
+
+
+/* SECTION ARRAY LATIHAN 2*/
+string satuan[] = {
+    "", "satu", "dua", "tiga", "empat", "lima", "enam",
+    "tujuh", "delapan", "sembilan"
+};
+string belasan[] = {
+    "sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas",
+    "lima belas", "enam belas", "tujuh belas", "delapan belas",
+    "sembilan belas"
+};
+string puluhan[] = {
+    "","", "dua puluh", "tiga puluh", "empat puluh", "lima puluh",
+    "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"
+};
+/* SECTION ARRAY LATIHAN 2*/
+
+
+/* SECTION FUNCTION UNTUK CONDITION HANDLING LATIHAN2*/
+string bilanganKeKata(int n){
+    if (n==0)
+    return "nol";
+
+    if (n<10)
+    return satuan[n];
+
+    if (n<20)
+    return belasan[n-10];
+
+    if (n<100)
+    return puluhan[n/10] + (n%10 ? " " + satuan[n%10] : "");
+
+    if (n<200)
+    return "seratus " + bilanganKeKata(n-100);
+
+    if (n<1000)
+    return satuan[n/100] + " ratus" + (n%100 ? " " + bilanganKeKata(n%100): "");
+
+    if (n<1000000)
+    return bilanganKeKata(n/1000) + " ribu" + (n%1000 ? " " + bilanganKeKata(n%1000): "");
+
+    else
+    return "terlalu besar";
+};
+/* END-LINE DARI SECTION FUNCTION HANDLING LATIHAN2 */
+
+
+
+/* SECTION PROCEDURE UNTUK LATIHAN 1 */
+void tampilkanHasil(double x, double y)
+{
+    cout << "\n=== Hasil Perhitungan ===" << endl;
+    cout << "Float Pertama : " << x << endl;
+    cout << "Float Kedua   : " << y << endl;
+    cout << "Penjumlahan   : " << hitungPenjumlahan(x, y) << endl;
+    cout << "Pengurangan   : " << hitungPengurangan(x, y) << endl;
+    cout << "Perkalian     : " << hitungPerkalian(x, y) << endl;
+    cout << "Pembagian     : " << hitungPembagian(x, y) << endl;
+}
+/* END-LINE SECTION PROCEDURE UNTUK LATIHAN1 */
+
+
+/* SECTION DEKLARASI STRUCT MODUL 1 - LATIHAN 3*/
+struct mirror
+{
+    int n;
+};
+/* END-LINE SECTION DEKLARASI STRUCT MODUL 1 - LATIHAN 3*/
+
+
+/* SECTION PROCESURE UNTUK MAIN*/
+void listModul(){
+    cout <<
+    "BERIKUT ADALAH LIST MODULES ANDA : \n"
+    "1.) Modul 1\n"
+    "2.) Modul 2\n"
+    "3.) Modul 3\n"
+    "4.) Modul 4\n";
+}
+/* END-LINE SECTION PROCESURE UNTUK MAIN*/
+
+
+/* SECTION PROCEDURE PENAMPILAN LIST LATIHAN, MAIN.*/
+void listLatihan(int x){
+    switch(x)
+    {
+        case 1:
+            cout <<
+            "LIST LATIHAN DALAM MODUL "<< x << ":\n"
+            "1- Latihan 1\n"
+            "2- Latihan 2\n"
+            "3- Latihan 3\n";
+        break;
+        
+        case 2:
+            cout <<
+            "LIST LATIHAN DALAM MODUL " << x <<":\n"
+            "1- (still empty)\n"
+            "2- (still empty)\n"
+            "3- (still empty)\n";
+        break;
+        
+        default:
+        break;
+    }
+}
+/* END-LINE SECTION PROCEDURE PENAMPILAN LIST LATIHAN, MAIN.*/
+
+
+int main()
+{
+    int bilangan;
+
+    string cabut = "n";
+
+    int modul;
+    int latihan;
+
+    /*SECTION VARIABLES MODUL 1 LATIHAN 3*/
+    mirror pola;
+    /*SECTION VARIABLES MODUL 1 LATIHAN 3*/
+    
+    while (cabut == "n")
+    {
+        listModul();//menampilkan listModul
+        cout << 
+        ">> Modul berapa yang ingin Anda akses : ";
+        cin >> modul;
+        cout << endl;
+
+        switch (modul)
+        {
+        //MODUL1
+        //MODUL1
+        //MODUL1
+        case 1:
+            cout <<"------ANDA BERADA DALAM MODUL 1-------\n"<< endl;
+            listLatihan(1);
+
+            cout <<
+            ">> Latihan berapa yang ingin Anda akses : ";
+            cin >> latihan;
+            cout << endl;
+
+            switch(latihan)
+            {
+                //MAIN LATIHAN1
+                //MAIN LATIHAN1
+                //MAIN LATIHAN1
+                case 1: 
+                    float n1, n2;
+
+                    cout <<
+                    "-------ANDA BERADA DALAM MODUL " << modul << " - LATIHAN " << latihan << "-------" << endl;
+                    "-------INI ADALAH PROGRAM ARITMATIKA-------\n";
+                    cout << endl;
+                    /*input yang akan diolah oleh function hitungLuas dan hitungKeliling*/
+                    cout << "Masukkan float pertama : ";
+                    cin >> n1; //jadi datatypes yang diinput itu berdasarkan datatype variablenya yang di extract.
+                    cout << "Masukkan float kedua : "; // "<< adalah operator extractor"
+                    cin >> n2;
+
+                    tampilkanHasil(n1, n2);
+                break;
+
+                //MAIN LATIHAN2
+                //MAIN LATIHAN2
+                //MAIN LATIHAN2
+                case 2:
+                    cout <<
+                    "-------ANDA BERADA DALAM MODUL " << modul << " - LATIHAN " << latihan << "-------" << endl;
+                    cout << "-------INI ADALAH PROGRAM NUMBERS-TO-SENTENCE CONVERSION\n";
+                    cout << endl;
+
+                    cout <<
+                    "Masukkan bilangan-mu : ";
+                    cin >> bilangan;
+                    cout << endl;
+
+                    cout <<
+                    "Bilangan Anda adalah : "
+                    << bilanganKeKata(bilangan)
+                    << endl;
+                    cout << endl;
+
+                break;
+
+                //MAIN LATIHAN3
+                //MAIN LATIHAN3
+                //MAIN LATIHAN3
+                case 3:
+                    cout <<
+                    "-------ANDA BERADA DALAM MODUL " << modul <<" - LATIHAN "<< latihan << "-------" << endl;
+                    cout << "-------INI ADALAH PROGRAM LOOPING POLA SEGITIGA-------\n";
+                    cout << endl;
+
+                    cout <<
+                    "Masukkan input : ";
+                    cin >> pola.n; //nilai input
+                    cout <<
+                    "Output :" << endl;
+                    cout << endl;
+
+                    for (int i = pola.n; i>0; i--){ //loop utama untuk eksekusi setiap index
+                        for(int s=pola.n; s>i; s--){
+                            cout << " ";
+                        }
+
+                        //innerloop bagian kiri pola (descending)
+                        for(int j = i; j>=1; j--){
+                            cout << j;
+                        }
+                        cout << "*"; //bintang tengah (separator biar keliatan simetris)
+                        //innerloop bagian kanan pola (ascending)
+                        for(int j=1; j<=i; j++){
+                            cout << j;
+                        }
+                        cout << endl;//bikin new-line setiap kelar iterasi loop kanan (ascending)
+
+                        /*condition handling ketika i==1*/
+                        if (i==1)
+                        {   /*for-loop untuk menghitung jumlah printing space-character*/
+                            //untuk keperluan printing "*" di row paling terakhir. (sebagai pucuk)
+                            for (int k=pola.n; k>0;k--)//menghitung banyak space dengan banyak pola.n descendingly
+                            {
+                                cout << " ";
+                            }
+                            cout << "*";
+                        }
+                        
+                    }
+                    cout << endl;
+                    cout << endl;
+                break;
+
+                default:
+                break;
+            }
+            break;
+        
+        //MODUL2 
+        //MODUL2 
+        //MODUL2 
+        case 2:
+            cout <<
+            "-------ANDA BERADA DALAM MODUL2-------\n";
+            listLatihan(2);
+
+            cout <<
+            ">> Latihan berapa yang ingin Anda akses :";
+            cin >> latihan;
+            cout << endl;
+        break;
+
+        default:
+        break;
+        }
+
+        //buat cabut.
+        cout <<
+        ">> Mau cabut atau udah nyaman?(y/n)\n";
+        cin >> cabut;
+    }
+    return 0;
 }
 ```
 
 > Output
-> ![Screenshot bagian x](output/screenshot_soal2A.png)
+> ![[unguided3-pola-segitiga.png]]
 
-penjelasan kode
-
-Kalau adalanjutan di lanjut disini aja
-
-soal nomor 2B
-
-```go
-package main
-
-func main() {
-	fmt.Println("kode untuk soal nomor 2B")
-}
-```
-
-> Output
-> ![Screenshot bagian x](output/screenshot_soal2B.png)
-
-penjelasan bedanya sesuai soal
+Penjelasan terdapat pada dalam sourcecode dalam bentuk comment.
 
 ## Referensi
 
